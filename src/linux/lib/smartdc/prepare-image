@@ -151,6 +151,38 @@ prepare_debian() {
   fi
 }
 
+# Archlinux (systemd) specific commands go here
+prepare_arch()
+{
+  info "cleaning up network devices"
+  if [[ -d /var/lib/dhcpcd ]] then
+    find /var/lib/dhcpcd -type f -name "*.lease" | xargs rm -f
+  fi
+
+  info "cleaning up package cache"
+  out=$(pacman -Scc --noconfirm)
+
+  if [[ -z `which arping` ]] ; then
+    addwarn "arping not found!"
+    addwarn "to install arping run 'pacman -S iputils'."
+  fi
+ 
+  if [[ -z `which lsb_release` ]] ; then
+    addwarn "lsb_release not found!"
+    addwarn "To install lsb_release run 'pacman -S lsb-release'.";
+  fi
+
+  local pacmanbin=$(which pacman 2>/dev/null)
+  if [[ -e ${pacmanbin} ]] ; then
+    out=$($pacmanbin -Qq acpidi 2>/dev/null)
+    if [[ -z ${out} ]]; then
+      addwarn "ACPID not found. Lifecycle management will be degraded!"
+      addwarn "To install acpid run 'pacman -S acpid'."
+    fi
+  fi
+
+}
+
 ## MAIN ##
 
 separator
@@ -163,6 +195,8 @@ case `uname -s` in
       prepare_redhat
     elif [ -f /etc/debian_version ] ; then
       prepare_debian
+    elif [ -f /etc/arch-release ] ; then
+      prepare_arch
     fi
     check_selinux
     cleanup_disks

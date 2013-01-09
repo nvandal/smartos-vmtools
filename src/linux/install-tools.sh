@@ -37,6 +37,11 @@ install_redhat() {
   cp ./etc/rc.local /etc
 }
 
+install_arch() {
+  install_tools
+  echo "Installing archlinux-flavour specific files..."
+}
+
 if [[ $EUID -ne 0 ]] ; then
   fatal "You must be root to run this command"
 fi
@@ -66,6 +71,8 @@ case `uname -s` in
       install_redhat
     elif [[ -f /etc/debian_version ]] ; then
       install_debian
+    elif [[ -f /etc/arch-release ]] ; then
+      install_arch
     else
       fatal "Sorry. Your OS is not supported by this installer"
     fi

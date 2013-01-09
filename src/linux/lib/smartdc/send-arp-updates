@@ -4,7 +4,11 @@ set -o errexit
 set -o pipefail
 
 device=$(ip route list | grep ^default | cut -d ' ' -f 5)
-ipaddr=$(ifconfig $device | grep 'inet addr:' | cut -d: -f2 | cut -d ' ' -f1)
+if [[ -f `which ifconfig` ]] ; then
+    ipaddr=$(ifconfig $device | grep 'inet addr:' | cut -d: -f2 | cut -d ' ' -f1)
+else
+    ipaddr=$(ip addr show dev $device | grep 'inet ' | sed 's|^.*inet \(.*\)/.*|\1|')
+fi
 
 # We send both kinds of ARP updates, to be ultra verbose
 arping -q -c 2 -A -I $device $ipaddr
