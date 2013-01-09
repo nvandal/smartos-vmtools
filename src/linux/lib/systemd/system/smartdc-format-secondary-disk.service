@@ -4,7 +4,7 @@ ConditionFileIsExecutable=/lib/smartdc/format-secondary-disk
 
 [Service]
 Type=oneshot
-ExecStart=/lib/smartdc/format-seconday-disk
+ExecStart=/lib/smartdc/format-secondary-disk
 TimeoutSec=0
 
 [Install]
