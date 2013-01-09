@@ -1,0 +1,11 @@
+[Unit]
+Description=Joyent smartos-vmtools: set-root-authorized-keys
+ConditionFileIsExecutable=/lib/smartdc/set-root-authorized-keys
+
+[Service]
+Type=oneshot
+ExecStart=/lib/smartdc/set-root-authorized-keys
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target

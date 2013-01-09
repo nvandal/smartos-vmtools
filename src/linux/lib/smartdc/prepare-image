@@ -155,7 +155,7 @@ prepare_debian() {
 prepare_arch()
 {
   info "cleaning up network devices"
-  if [[ -d /var/lib/dhcpcd ]] then
+  if [[ -d /var/lib/dhcpcd ]] ; then
     find /var/lib/dhcpcd -type f -name "*.lease" | xargs rm -f
   fi
 
@@ -174,7 +174,7 @@ prepare_arch()
 
   local pacmanbin=$(which pacman 2>/dev/null)
   if [[ -e ${pacmanbin} ]] ; then
-    out=$($pacmanbin -Qq acpidi 2>/dev/null)
+    out=$($pacmanbin -Qq acpid 2>/dev/null)
     if [[ -z ${out} ]]; then
       addwarn "ACPID not found. Lifecycle management will be degraded!"
       addwarn "To install acpid run 'pacman -S acpid'."

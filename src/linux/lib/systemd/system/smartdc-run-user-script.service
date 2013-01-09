@@ -1,0 +1,12 @@
+[Unit]
+Description=Joyent smartos-vmtools: run-user-script
+ConditionFileIsExecutable=/lib/smartdc/run-user-script
+
+[Service]
+Type=oneshot
+ExecStart=/lib/smartdc/run-user-script
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target
+

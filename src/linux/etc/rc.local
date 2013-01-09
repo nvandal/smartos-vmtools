@@ -81,6 +81,8 @@ case `uname -s` in
       setup_redhat
     elif [[ ${vendor} == "Ubuntu" ]] ; then
       setup_ubuntu
+    elif [[ ${vendor} == "arch" ]] ; then
+      setup_arch
     fi
     ;;
   *)
