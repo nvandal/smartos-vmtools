@@ -5,7 +5,8 @@ ConditionFileIsExecutable=/lib/smartdc/run-user-script
 [Service]
 Type=oneshot
 ExecStart=/lib/smartdc/run-user-script
-TimeoutSec=0
+RemainAfterExit=yes
+TimeoutSec=60
 
 [Install]
 WantedBy=multi-user.target

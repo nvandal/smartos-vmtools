@@ -5,7 +5,8 @@ ConditionFileIsExecutable=/lib/smartdc/set-root-authorized-keys
 [Service]
 Type=oneshot
 ExecStart=/lib/smartdc/set-root-authorized-keys
-TimeoutSec=0
+RemainAfterExit=yes
+TimeoutSec=60
 
 [Install]
 WantedBy=multi-user.target
