@@ -1,5 +1,6 @@
 [Unit]
 Description=Joyent smartos-vmtools: format-secondary-disk
+After=local-fs.target
 ConditionFileIsExecutable=/lib/smartdc/format-secondary-disk
 
 [Service]

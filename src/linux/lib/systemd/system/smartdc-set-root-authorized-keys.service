@@ -1,5 +1,6 @@
 [Unit]
 Description=Joyent smartos-vmtools: set-root-authorized-keys
+After=local-fs.target
 ConditionFileIsExecutable=/lib/smartdc/set-root-authorized-keys
 
 [Service]
